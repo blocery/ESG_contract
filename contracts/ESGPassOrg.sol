@@ -3,9 +3,9 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract ESGPassORG is ERC721Burnable, AccessControl {
+contract ESGPassOrg is ERC721, AccessControl {
 
     string public baseURI;
     bytes32 public MINTROLE = 0x12bca523588c492d82109e8191fb2bcd9a5806d976467d1070194c642eb59e03;
@@ -28,9 +28,18 @@ contract ESGPassORG is ERC721Burnable, AccessControl {
         return baseURI;
     }
 
+    function TokenId() public view returns (uint256) {
+        return tokenId;
+    }
+
+
     function mintTo(address _org) external onlyRole(MINTROLE) {
-        require(balanceOf(msg.sender) == 0, "Already minted");
-        _mint(msg.sender, tokenId);
+        require(balanceOf(_org) == 0, "Already minted");
+        _mint(_org, tokenId);
         tokenId += 1 ;
+    }
+
+    function burnFrom(address _from, uint256 tokenId) external onlyRole(MINTROLE) {
+        _update(address(0), tokenId, _from);
     }
 }
