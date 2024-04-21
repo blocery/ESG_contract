@@ -41,10 +41,12 @@ describe("ESGPass", function () {
       await bly.connect(alice).approve(await staking.getAddress(), threshold);
       await staking.connect(alice).stake(threshold);
       await staking.connect(alice).mint()
-
+      const totalStakers = await staking.totalStakers()
+        console.log(totalStakers)
       await expect(staking.connect(bob).mint()).revertedWith("Need to stake more BLY")
       await staking.connect(alice).burn(1);
       await staking.connect(alice).unstake(threshold)
+
     });
 
   });

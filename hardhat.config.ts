@@ -4,6 +4,7 @@ import "@nomicfoundation/hardhat-toolbox";
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const MAIN_PRIVATE_KEY = process.env.MAIN_PRIVATE_KEY;
+const BASE_PRIVATE_KEY = process.env.BASE_PRIVATE_KEY;
 const ETHEREUM_SEPOLIA_RPC_URL = process.env.ETHEREUM_SEPOLIA_RPC_URL;
 const POLYGON_MUMBAI_RPC_URL = process.env.POLYGON_MUMBAI_RPC_URL;
 const OPTIMISM_GOERLI_RPC_URL = process.env.OPTIMISM_GOERLI_RPC_URL;
@@ -11,9 +12,7 @@ const ARBITRUM_TESTNET_RPC_URL = process.env.ARBITRUM_TESTNET_RPC_URL;
 const AVALANCHE_FUJI_RPC_URL = process.env.AVALANCHE_FUJI_RPC_URL;
 const AVALANCHE_RPC_URL = process.env.AVALANCHE_RPC_URL;
 const BNBCHAIN_TESTNET_RPC_URL = process.env.BNBCHAIN_TESTNET_RPC_URL;
-
-console.log("pri", PRIVATE_KEY)
-console.log(AVALANCHE_FUJI_RPC_URL)
+const BASECHAIN_TESTNET_RPC_URL = process.env.BASECHAIN_TESTNET_RPC_URL;
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -64,6 +63,11 @@ const config: HardhatUserConfig = {
       url: BNBCHAIN_TESTNET_RPC_URL !== undefined ? BNBCHAIN_TESTNET_RPC_URL: '',
       accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
       chainId: 97
+    },
+    baseTestnet: {
+      url: BASECHAIN_TESTNET_RPC_URL !== undefined ? BASECHAIN_TESTNET_RPC_URL: '',
+      accounts: BASE_PRIVATE_KEY !== undefined ? [BASE_PRIVATE_KEY] : [],
+      chainId: 84532
     }
   },
   typechain: {
